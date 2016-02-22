@@ -19,3 +19,6 @@ options:
         #jn_https:
         #    port: 8481
         #    exposed_on: 'datanode'
+        journalnode:
+            port: 8485
+            exposed_on: 'datanode'
