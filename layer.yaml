@@ -13,3 +13,6 @@ options:
         #dn_webapp_https:
         #    port: 50475
         #    exposed_on: 'datanode'
+        journalnode:
+            port: 8485
+            exposed_on: 'datanode'
