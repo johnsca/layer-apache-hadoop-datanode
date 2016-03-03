@@ -24,6 +24,7 @@ def start_datanode(namenode):
     utils.manage_etc_hosts()
     hdfs.start_datanode()
     hdfs.start_journalnode()
+    namenode.node_started()
     hadoop.open_ports('datanode')
     set_state('datanode.started')
 
