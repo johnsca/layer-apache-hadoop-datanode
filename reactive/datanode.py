@@ -33,9 +33,7 @@ def restart_required():
     hadoop = get_hadoop_base()
     hdfs = HDFS(hadoop)
     hdfs.stop_datanode()
-    hdfs.stop_journalnode()
     hdfs.start_datanode()
-    hdfs.start_journalnode()
     remove_state('datanode.restart.required')
 
 @when('datanode.started')
