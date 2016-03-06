@@ -29,7 +29,7 @@ def start_datanode(namenode):
     set_state('datanode.started')
 
 @when('datanode.restart.required')
-def restart_required():
+def restart_required(*args):
     hadoop = get_hadoop_base()
     hdfs = HDFS(hadoop)
     hdfs.stop_datanode()
