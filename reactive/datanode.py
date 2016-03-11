@@ -4,7 +4,7 @@ from jujubigdata.handlers import HDFS
 from jujubigdata import utils
 
 
-@when('namenode.related')
+@when('namenode.joined')
 def send_journalnode_port(namenode):
     hadoop = get_hadoop_base()
     namenode.send_jn_port(hadoop.dist_config.port('journalnode'))
