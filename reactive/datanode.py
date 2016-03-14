@@ -43,6 +43,5 @@ def stop_datanode():
     hdfs = HDFS(hadoop)
     hdfs.stop_datanode()
     hdfs.stop_journalnode()
-    namenode.node_stopped()
     hadoop.close_ports('datanode')
     remove_state('datanode.started')
