@@ -4,12 +4,6 @@ from jujubigdata.handlers import HDFS
 from jujubigdata import utils
 
 
-@when('namenode.joined')
-def send_journalnode_port(namenode):
-    hadoop = get_hadoop_base()
-    namenode.send_jn_port(hadoop.dist_config.port('journalnode'))
-
-
 @when('namenode.ready')
 @when_not('datanode.started')
 def start_datanode(namenode):
@@ -24,19 +18,10 @@ def start_datanode(namenode):
     utils.manage_etc_hosts()
     hdfs.start_datanode()
     hdfs.start_journalnode()
-    namenode.node_started()
+    namenode.send_jn_port(hadoop.dist_config.port('journalnode'))
     hadoop.open_ports('datanode')
     set_state('datanode.started')
 
-@when('datanode.restart.required')
-@when_not('dequeue.restart')
-def restart_once(*args):
-    hadoop = get_hadoop_base()
-    hdfs = HDFS(hadoop)
-    hdfs.stop_datanode()
-    hdfs.start_datanode()
-    set_state('dequeue.restart')
-    remove_state('datanode.restart.required')
 
 @when('datanode.started')
 @when_not('namenode.ready')
