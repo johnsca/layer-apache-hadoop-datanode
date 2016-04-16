@@ -1,4 +1,4 @@
-from charms.reactive import when, when_not, set_state, remove_state, is_state
+from charms.reactive import when, when_not, set_state, is_state
 from charms.reactive.helpers import data_changed
 from charms.layer.hadoop_base import get_hadoop_base
 from jujubigdata.handlers import HDFS
@@ -39,14 +39,3 @@ def update_config(namenode):
 
     if data_changed('datanode.namenode-ssh-key', namenode.ssh_key()):
         utils.install_ssh_key('hdfs', namenode.ssh_key())
-
-
-@when_not('namenode.ready')
-@when('datanode.started')
-def stop_datanode():
-    hadoop = get_hadoop_base()
-    hdfs = HDFS(hadoop)
-    hdfs.stop_datanode()
-    hdfs.stop_journalnode()
-    hadoop.close_ports('datanode')
-    remove_state('datanode.started')
